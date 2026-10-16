@@ -2,6 +2,6 @@
 
 # Javascript Discord BrainRush bot with GitHub Codespaces
 
-BrainRush is Discord leveling bot that rewards community engagement, daily question answering, and participation with XP, levels, and server-based rewards.
+BrainRush is a Discord leveling bot that rewards community engagement, daily question answering, and participation with XP, levels, and server-based rewards.
 
 BrainRush is currently under active development...
