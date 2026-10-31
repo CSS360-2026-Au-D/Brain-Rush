@@ -1,3 +1,4 @@
+import { handleTrivia } from "../trivia/handleTrivia";
 import { awardXP, calculateLevel } from "../xp/xpManager";
 import { getXP } from "../xp/xpStorage";
 
@@ -8,6 +9,9 @@ const event = {
         if (message.author.bot){
             return;
         }
+        if (await handleTrivia(message, client)) {
+            return;
+}
         
         const parts = message.content.trim().split(/\s+/);
 
