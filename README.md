@@ -64,7 +64,7 @@ Once registered, use /leaderboard in the configured Discord server.
 
 The leaderboard uses the same XP database as the leveling and trivia systems.
 
-### Testing
+## Testing
 
 Run automated tests:
 
