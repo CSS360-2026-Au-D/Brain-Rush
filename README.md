@@ -26,6 +26,17 @@ Deployment must retain the data folder across restarts and updates.
 Questions do not repeat until the available sports question bank is
 exhausted. Previously answered question messages cannot award XP again.
 
+## XP and Leveling
+
+Brain-Rush allows Discord server members to earn XP and level up.
+
+- `!level @user` — View a user's total XP and current level.
+- `!testxp @user amount` — Award XP to a user for testing purposes (administrators only).
+
+Users begin at Level 1 with 0 XP and gain one level for every 100 XP earned.
+
+XP is stored using SQLite and tracked separately for each user and Discord server. XP persists between bot restarts as long as the database is preserved.
+
 ### Testing
 
 Run automated tests:
