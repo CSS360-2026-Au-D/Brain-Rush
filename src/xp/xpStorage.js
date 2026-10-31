@@ -6,7 +6,7 @@ const dataFolder = path.join(process.cwd(), "data");
 
 fs.mkdirSync(dataFolder, {recursive: true});
 
-const db = new Database(path.join(dataFolder, "xp.sqlite"));
+export const db = new Database(path.join(dataFolder, "xp.sqlite"));
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS user_xp (
