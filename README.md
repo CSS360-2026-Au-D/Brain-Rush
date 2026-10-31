@@ -37,6 +37,33 @@ Users begin at Level 1 with 0 XP and gain one level for every 100 XP earned.
 
 XP is stored using SQLite and tracked separately for each user and Discord server. XP persists between bot restarts as long as the database is preserved.
 
+## Server Leaderboard
+
+Brain-Rush includes a leaderboard that ranks server members based on their total XP.
+
+### Command
+
+/leaderboard — Display the top 10 users in the server, ranked by XP.
+
+The leaderboard displays each user's name, current level, and total XP.
+
+Slash Command Setup
+The leaderboard uses a Discord slash command, which must be registered before use.
+
+Add the following variables to your .env file:
+
+TOKEN — Discord bot token.
+CLIENT_ID — Discord application ID.
+GUILD_ID — Discord server ID.
+
+Register the command by running:
+
+npm run register
+
+Once registered, use /leaderboard in the configured Discord server.
+
+The leaderboard uses the same XP database as the leveling and trivia systems.
+
 ### Testing
 
 Run automated tests:
