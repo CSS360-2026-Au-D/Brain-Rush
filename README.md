@@ -80,6 +80,3 @@ npm start
 
 Use a `.env` file containing the bot's `TOKEN`. Never commit that file.
 
-Verified in the private Discord test server: correct and incorrect
-answers, rejection of repeated answers, challenge resumption, the
-five-question limit, and persistence after restarting the bot.
