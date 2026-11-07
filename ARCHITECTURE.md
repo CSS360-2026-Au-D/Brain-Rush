@@ -56,13 +56,18 @@ The src/events/interactionCreate.js file acts as the central router. It listens 
 4. Asynchronous Response
 The handler then executes the business logic. For example, it will request data from the XP module (Person 3). Once the data is retrieved, it constructs a Discord Embed and sends it back via the REST API. This WebSocket-in / REST-out mechanism ensures the bot remains highly responsive and can handle concurrent interactions across multiple servers.
 
+1.4 Extension Guide
 ### 1.4 Extension Guide
-How to add a new slash command:
 
-Define the command's data and execution logic in the codebase.
+**How to add a new slash command:**
+1. Define the command's data and execution logic in the codebase.
+2. Run the registration script to sync the new command to Discord.
+3. Add the routing logic in `src/events/interactionCreate.js` by matching the new `commandName`. The core `app.js` configuration does not need to be modified.
 
-Run the registration script to sync the new command to Discord.
+**How to add a new message (prefix) command:**
+If you want to add a command that is triggered by normal messages (e.g., `!level`):
+1. Write the execution logic and add it to the `src/events/messageCreate.js` file.
+2. Add a condition to check if the message content starts with your prefix and command name.
+3. *Note: Unlike slash commands, message commands do NOT need to be registered with Discord via the REST API.*
 
-Add the routing logic in src/events/interactionCreate.js by matching the new commandName. The core app.js configuration does not need to be modified.
-
-Note: For the data flow of the /leaderboard command and XP calculations, please refer to Section 3.
+> *Note: For the data flow of the /leaderboard command and XP calculations, please refer to Section 3.*
