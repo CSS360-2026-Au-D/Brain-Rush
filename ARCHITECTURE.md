@@ -56,7 +56,6 @@ The `src/events/interactionCreate.js` file acts as the central router. It listen
 4. Asynchronous Response
 The handler then executes the business logic. For example, it will request data from the XP module (Person 3). Once the data is retrieved, it constructs a Discord Embed and sends it back via the REST API. This WebSocket-in / REST-out mechanism ensures the bot remains highly responsive and can handle concurrent interactions across multiple servers.
 
-1.4 Extension Guide
 ### 1.4 Extension Guide
 
 **How to add a new slash command:**
@@ -168,3 +167,29 @@ Prompt footers contain a user ID and question ID, but no date or challenge-insta
 `tests/dailyChallenge.spec.js` uses a temporary SQLite database to test resumption, correct-answer XP, repeated-answer rejection, incorrect-answer progress, the five-question limit, and isolation across users/servers. Private-server testing additionally checked persistence after a bot restart. Date rollover and Discord reply-validation paths need dedicated automated coverage.
 
 To add topics, extend the bank with unique IDs and valid option indexes, then update the daily command's topic validation and the daily service's sports-specific history filtering together. To expose difficulty, pass the validated choice into selection and define how it is retained for the day's challenge. Keep Discord formatting in `handleTrivia.js` and selection/validation in `challenge.js` so these responsibilities remain independently testable.
+
+
+## 3. XP, Levels & Database (Luis)
+
+### Overview
+
+The XP system manages how users earn experience points, level up, and have their progress saved. Brain Rush uses SQLite to store XP persistently so users do not lose their progress when the bot restarts. The system separates XP calculations from database operations, allowing other features, such as daily trivia and the leaderboard, to access the same data.
+
+### Data Flow Diagram
+
+The following diagram illustrates how XP is awarded, stored, and retrieved throughout the bot.
+
+<img width="2436" height="1206" alt="image" src="https://github.com/user-attachments/assets/0651ebc5-7517-47b4-8519-441b82933201" />
+
+The trivia system awards users 10 XP for correctly answering a daily question. The XP system retrieves their existing XP, adds the new amount, calculates their level, and saves the updated XP to SQLite.
+
+The leaderboard can retrieve stored XP records independently to rank users. It does not need to communicate directly with the XP-awarding process.
+
+### XP and Database Implementation
+
+The XP system is divided into two main modules:
+
+- **`src/xp/xpManager.js`:** Handles XP awards and level calculations through functions such as `awardXP()` and `calculateLevel()`.
+- **`src/xp/xpStorage.js`:** Handles persistent storage, including saving and loading user XP using SQLite.
+
+XP records are associated with a user's Discord ID and server ID, allowing progress to be tracked separately across servers. Levels are calculated from accumulated XP rather than requiring a separate leveling system.
