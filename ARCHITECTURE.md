@@ -24,7 +24,7 @@ flowchart LR
     QG[Question Logic]
 
     %% Data Flows
-    U -- "1. Slash Commands / Buttons" --> DC
+    U -- "1. Slash Commands / Message Commands" --> DC
     DC -- "2. Gateway Events (WebSocket)" --> BOT
     BOT -- "3. REST API Responses" --> DC
     DC -- "4. Render UI/Embed" --> U
@@ -34,7 +34,7 @@ flowchart LR
 ```
 System Boundary Explanation:
 
-Discord Platform acts as the middleman. The bot does not communicate directly with the user; it relies on Discord's Gateway and REST API.
+Discord Platform acts as the middleman. Users can interact via Slash Commands (handled by interactionCreate.js) or Prefix Message Commands like !level (handled by messageCreate.js). The bot relies on Discord's Gateway and REST API.
 
 Brain-Rush System (src/app.js) is the core system boundary. It receives events, processes them, and sends responses.
 
